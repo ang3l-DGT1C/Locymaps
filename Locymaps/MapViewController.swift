@@ -9,7 +9,8 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-
+    var colores = [UIColor.blue, UIColor.green, UIColor.yellow, UIColor.orange,   UIColor.red]
+    var ruta = 0
     var elMapa:MKMapView!
     var estadioAzul = CLLocationCoordinate2D(latitude: 19.3834381, longitude: -99.1804635)
     
@@ -38,11 +39,39 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    func mostrarRuta() {
+        /*let linea = MKPolyline(coordinates:[elMapa.centerCoordinate, estadioAzul], count: 2)
+        elMapa.addOverlay(linea)*/
+        let indicaciones = MKDirections.Request()
+        indicaciones.source = MKMapItem(placemark: MKPlacemark(coordinate:elMapa.centerCoordinate))
+        indicaciones.destination = MKMapItem(placemark: MKPlacemark(coordinate:estadioAzul))
+        indicaciones.transportType = .any
+        indicaciones.requestsAlternateRoutes = true
+        let rutas = MKDirections(request: indicaciones)
+        rutas.calculate { response, error in
+            if error != nil {
+                print ("NO se obtuvieron rutas \(String(describing:error))")
+            }
+            else {
+                // El arreglo trae todas las rutas que se obtuvieron
+                guard let lasRutas = response?.routes else { return }
+                /* si queremos dibujar solo una...
+                guard let laRuta = lasRutas.first else { return }*/
+                lasRutas.forEach { laRuta in
+                    self.elMapa.addOverlay(laRuta.polyline)
+                    self.elMapa.setVisibleMapRect(laRuta.polyline.boundingMapRect, animated:false)
+                    self.ruta += 1
+                }
+            }
+        }
+    }
+    
     func destino () {
         let elPin = MKPointAnnotation()
         elPin.coordinate = estadioAzul
         elPin.title = "META"
         elMapa.addAnnotation(elPin)
+        mostrarRuta()
     }
     
     @objc func ubicacionActualizada (_ notificacion:Notification) {
@@ -70,5 +99,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             anotacion.glyphImage = UIImage(systemName: "person.circle")
         }
         return anotacion
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        // se tiene que implementar para poder mostrar lineas y poligonos
+        var lineaParaDibujar = MKPolylineRenderer()
+        if let linea = overlay as? MKPolyline {
+            lineaParaDibujar = MKPolylineRenderer(polyline: linea)
+            lineaParaDibujar.strokeColor = colores[ruta]
+            lineaParaDibujar.lineWidth = 2.0
+        }
+        return lineaParaDibujar
     }
 }

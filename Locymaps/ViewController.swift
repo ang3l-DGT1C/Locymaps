@@ -94,7 +94,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     self.view.addSubview(textView)
                     textView.text = direccion
                 }
-                //self.locationManager.stopUpdatingLocation()
+                self.locationManager.stopUpdatingLocation()
             }
         }
     }
