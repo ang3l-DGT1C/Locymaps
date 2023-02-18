@@ -14,6 +14,8 @@
 		3DA7567229A1369C009FF888 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DA7567129A1369C009FF888 /* Assets.xcassets */; };
 		3DA7567529A1369C009FF888 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DA7567329A1369C009FF888 /* LaunchScreen.storyboard */; };
 		3DA7567E29A136BB009FF888 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA7567D29A136BB009FF888 /* CoreLocation.framework */; };
+		3DA7568029A149AB009FF888 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA7567F29A149AB009FF888 /* MapViewController.swift */; };
+		3DA7568229A14A16009FF888 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA7568129A14A16009FF888 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		3DA7567429A1369C009FF888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DA7567629A1369C009FF888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DA7567D29A136BB009FF888 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3DA7567F29A149AB009FF888 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		3DA7568129A14A16009FF888 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DA7568229A14A16009FF888 /* MapKit.framework in Frameworks */,
 				3DA7567E29A136BB009FF888 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +72,7 @@
 				3DA7567129A1369C009FF888 /* Assets.xcassets */,
 				3DA7567329A1369C009FF888 /* LaunchScreen.storyboard */,
 				3DA7567629A1369C009FF888 /* Info.plist */,
+				3DA7567F29A149AB009FF888 /* MapViewController.swift */,
 			);
 			path = Locymaps;
 			sourceTree = "<group>";
@@ -74,6 +80,7 @@
 		3DA7567C29A136BA009FF888 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DA7568129A14A16009FF888 /* MapKit.framework */,
 				3DA7567D29A136BB009FF888 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
@@ -153,6 +160,7 @@
 				3DA7566D29A13699009FF888 /* ViewController.swift in Sources */,
 				3DA7566929A13699009FF888 /* AppDelegate.swift in Sources */,
 				3DA7566B29A13699009FF888 /* SceneDelegate.swift in Sources */,
+				3DA7568029A149AB009FF888 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

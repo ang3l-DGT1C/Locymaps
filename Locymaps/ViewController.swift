@@ -70,6 +70,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let loc = locations.first else { return }
         print ("parece que estas en: \(loc.coordinate)")
+        let ad = UIApplication.shared.delegate as! AppDelegate
+        ad.elCentro = loc.coordinate
+        NotificationCenter.default.post(name:NSNotification.Name("ubicacion_actualizada"), object:nil, userInfo: ["lat":loc.coordinate.latitude, "lon":loc.coordinate.longitude])
+        CLGeocoder().reverseGeocodeLocation(loc) { lugares, error in
+            if error != nil {
+                print ("ocurrio un error en la geolocalizacion \(String(describing: error))")
+            }
+            else {
+                guard let lugar = lugares?.first else { return }
+                let thoroughfare = (lugar.thoroughfare ?? "")
+                let subThoroughfare = (lugar.subThoroughfare ?? "")
+                let locality = (lugar.locality ?? "")
+                let subLocality = (lugar.subLocality ?? "")
+                let administrativeArea = (lugar.administrativeArea ?? "")
+                let subAdministrativeArea = (lugar.subAdministrativeArea ?? "")
+                let postalCode = (lugar.postalCode ?? "")
+                let country = (lugar.country ?? "")
+                let direccion = "Dirección: \(thoroughfare) \(subThoroughfare) \(locality) \(subLocality) \(administrativeArea) \(subAdministrativeArea) \(postalCode) \(country)"
+                let textView = UITextView()
+                textView.frame = self.view.bounds.insetBy(dx: 150, dy: 150)
+                DispatchQueue.main.async {
+                    self.view.addSubview(textView)
+                    textView.text = direccion
+                }
+                //self.locationManager.stopUpdatingLocation()
+            }
+        }
     }
         
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
